@@ -80,6 +80,8 @@ public class SecurityConfig {
                         anyRequest().authenticated())
 
 
+
+
                 // logout 설정
                 .logout(logout -> logout.
                         logoutUrl("/member/logout").
@@ -163,7 +165,8 @@ public class SecurityConfig {
     public RoleHierarchyImpl roleHierarchy() {
         return RoleHierarchyImpl.fromHierarchy("""
             ROLE_permission_level0 > ROLE_permission_level1
-            ROLE_permission_level1> ROLE_permission_level2
+            ROLE_permission_level1 > ROLE_permission_level2
+            ROLE_permission_level0 > ROLE_permission_level2
             """);
     }
 
