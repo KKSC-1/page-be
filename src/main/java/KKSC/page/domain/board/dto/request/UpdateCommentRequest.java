@@ -1,5 +1,4 @@
-package KKSC.page.domain.board.dto;
-
+package KKSC.page.domain.board.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

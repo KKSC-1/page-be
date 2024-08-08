@@ -1,10 +1,11 @@
 package KKSC.page.domain.board.controller;
 
-import KKSC.page.domain.board.dto.AddCommentRequest;
-import KKSC.page.domain.board.dto.CommentResponse;
-import KKSC.page.domain.board.dto.UpdateCommentRequest;
+import KKSC.page.domain.board.dto.request.AddCommentRequest;
+import KKSC.page.domain.board.dto.request.UpdateCommentRequest;
+import KKSC.page.domain.board.dto.response.CommentResponse;
 import KKSC.page.domain.board.entity.Comment;
 import KKSC.page.domain.board.service.CommentService;
+import KKSC.page.domain.board.service.impl.CommentServicelmpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import java.util.List;
 @RestController
 public class CommentController {
 
-    private final CommentService commentService;
+    private final CommentServicelmpl commentService;
 
     /**
      * 댓글 추가

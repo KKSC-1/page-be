@@ -1,4 +1,4 @@
-package KKSC.page.domain.board.dto;
+package KKSC.page.domain.board.dto.request;
 
 import KKSC.page.domain.board.entity.Board;
 import KKSC.page.domain.board.entity.Comment;
