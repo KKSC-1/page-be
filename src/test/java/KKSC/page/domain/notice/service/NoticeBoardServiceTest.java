@@ -25,7 +25,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
-@WithMockUser(roles = {"permission_level0", "permission_level1", "permission_level2"})
+@WithMockUser(roles = {"permission_level0"})
 class NoticeBoardServiceTest {
 
     @Autowired

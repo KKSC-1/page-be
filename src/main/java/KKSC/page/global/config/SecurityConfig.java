@@ -80,8 +80,6 @@ public class SecurityConfig {
                         anyRequest().authenticated())
 
 
-
-
                 // logout 설정
                 .logout(logout -> logout.
                         logoutUrl("/member/logout").
@@ -97,7 +95,6 @@ public class SecurityConfig {
                 .exceptionHandling(exception -> exception
                         .accessDeniedHandler(customAccessDeniedHandler)
                 )
-
 
                 .build();
     }
@@ -169,7 +166,6 @@ public class SecurityConfig {
             ROLE_permission_level0 > ROLE_permission_level2
             """);
     }
-
 
     /*
     * 권한 계층 등록

@@ -10,7 +10,6 @@ import KKSC.page.global.auth.service.JwtService;
 import KKSC.page.global.exception.ErrorCode;
 import KKSC.page.global.exception.dto.ResponseVO;
 import io.swagger.v3.oas.annotations.Operation;
-import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
