@@ -1,10 +1,11 @@
 package KKSC.page.domain.board.controller;
 
-import KKSC.page.domain.board.dto.AddBoardRequest;
-import KKSC.page.domain.board.dto.BoardResponse;
-import KKSC.page.domain.board.dto.UpdateBoardRequest;
+import KKSC.page.domain.board.dto.request.AddBoardRequest;
+import KKSC.page.domain.board.dto.request.UpdateBoardRequest;
+import KKSC.page.domain.board.dto.response.BoardResponse;
 import KKSC.page.domain.board.entity.Board;
 import KKSC.page.domain.board.service.BoardService;
+import KKSC.page.domain.board.service.impl.BoardServicelmpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +18,7 @@ import java.util.List;
 @RequestMapping("/api/boards") // REST API의 기본 경로를 설정합니다. 단수형으로 URI를 선택합니다.
 @RestController
 public class BoardController {
-    private final BoardService boardService; // BoardService 인스턴스를 주입받습니다.
+    private final BoardServicelmpl boardService; // BoardService 인스턴스를 주입받습니다.
 
     /**
      * 게시글 추가

@@ -1,4 +1,4 @@
-package KKSC.page.domain.board.dto;
+package KKSC.page.domain.board.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package KKSC.page.domain.board.dto;
+package KKSC.page.domain.board.dto.response;
 
 import KKSC.page.domain.board.entity.Comment;
 import lombok.Getter;

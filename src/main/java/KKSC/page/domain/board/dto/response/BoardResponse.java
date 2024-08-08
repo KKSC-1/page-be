@@ -1,4 +1,4 @@
-package KKSC.page.domain.board.dto;
+package KKSC.page.domain.board.dto.response;
 
 import KKSC.page.domain.board.entity.Board;
 import lombok.Getter;
@@ -15,7 +15,7 @@ public class BoardResponse {
     private Long id; // 게시글 ID
     private String title; // 게시글 제목
     private String content; // 게시글 내용
-    private List<CommentResponse> comments; // 게시글의 댓글 목록
+    private List<KKSC.page.domain.board.dto.response.CommentResponse> comments; // 게시글의 댓글 목록
 
     public BoardResponse(Board board) {
         this.id = board.getId();
