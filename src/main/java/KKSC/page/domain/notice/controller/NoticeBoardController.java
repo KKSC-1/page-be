@@ -5,6 +5,7 @@ import KKSC.page.domain.notice.dto.NoticeBoardDetailResponse;
 import KKSC.page.domain.notice.dto.NoticeBoardListResponse;
 import KKSC.page.domain.notice.dto.NoticeBoardRequest;
 import KKSC.page.domain.notice.entity.Keyword;
+import KKSC.page.domain.notice.exeption.NoticeBoardException;
 import KKSC.page.domain.notice.service.NoticeBoardService;
 import KKSC.page.global.auth.service.JwtService;
 import KKSC.page.global.exception.ErrorCode;
@@ -34,19 +35,18 @@ public class NoticeBoardController {
     // 게시글 작성
     @Operation(summary = " 게시물 작성 ", description = " 게시물 작성 ")
     @PostMapping("/")
-    public ResponseVO<Long> noticeCreate(@RequestBody @Valid NoticeBoardRequest request) {
-        Long createdId = noticeBoardService.create(request, null);// memberName은 이후 로그인 구현 후 추가
+    public ResponseVO<Long> noticeCreate(HttpServletRequest httpServletRequest, @RequestBody @Valid NoticeBoardRequest request) {
+        String username = jwtService.extractUsername(httpServletRequest)
+                .orElseThrow(() -> new NoticeBoardException(ErrorCode.ACCESS_DENIED));
 
-        return new ResponseVO<>(createdId);
+        return new ResponseVO<>(noticeBoardService.create(request, username));
     }
 
     // 게시글 수정
     @Operation(summary = " 게시물 수정 ", description = " 게시물 수정 ")
     @PutMapping("/{id}")
     public ResponseVO<NoticeBoardDetailResponse> noticeUpdate(@PathVariable("id") Long id, @RequestBody @Valid NoticeBoardRequest request) {
-        NoticeBoardDetailResponse detailResponse = noticeBoardService.update(id, request);
-
-        return new ResponseVO<>(detailResponse);
+        return new ResponseVO<>(noticeBoardService.update(id, request));
     }
 
     // 게시글 삭제
@@ -63,8 +63,8 @@ public class NoticeBoardController {
     @GetMapping("/list")
     public ResponseVO<Page<NoticeBoardListResponse>> noticeListPage(
             @PageableDefault(sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
-        Page<NoticeBoardListResponse> listResponses = noticeBoardService.getBoardList(pageable);
-        return new ResponseVO<>(listResponses);
+
+        return new ResponseVO<>(noticeBoardService.getBoardList(pageable));
     }
 
     // 게시글 단건 조회
@@ -86,8 +86,7 @@ public class NoticeBoardController {
         noticeBoardService.readNotice(id, cookieName, noticeBoardViewCookie, response);
 
         // 글 조회
-        NoticeBoardDetailResponse detailResponse = noticeBoardService.getBoardDetail(id);
-        return new ResponseVO<>(detailResponse);
+        return new ResponseVO<>(noticeBoardService.getBoardDetail(id));
     }
 
     // 특정 키워드로 검색
