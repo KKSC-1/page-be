@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 @Transactional
-public class CommentServicelmpl {
+public class CommentServiceImpl {
 
     private final CommentRepository commentRepository; // 댓글 레포지토리
     private final BoardRepository boardRepository; // 게시글 레포지토리

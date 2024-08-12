@@ -4,8 +4,7 @@ import KKSC.page.domain.board.dto.request.AddCommentRequest;
 import KKSC.page.domain.board.dto.request.UpdateCommentRequest;
 import KKSC.page.domain.board.dto.response.CommentResponse;
 import KKSC.page.domain.board.entity.Comment;
-import KKSC.page.domain.board.service.CommentService;
-import KKSC.page.domain.board.service.impl.CommentServicelmpl;
+import KKSC.page.domain.board.service.impl.CommentServiceImpl;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +18,7 @@ import java.util.List;
 @RestController
 public class CommentController {
 
-    private final CommentServicelmpl commentService;
+    private final CommentServiceImpl commentService;
 
     /**
      * 댓글 추가

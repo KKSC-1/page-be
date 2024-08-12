@@ -12,10 +12,10 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 @Service
-public class BoardServicelmpl {
+public class BoardServiceImpl {
     private final BoardRepository boardRepository;
 
-    public Board save(AddBoardRequest request) {
+    public Board create(AddBoardRequest request) {
         return boardRepository.save(request.toEntity());
     }
 
