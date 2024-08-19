@@ -87,7 +87,6 @@ public class NoticeFileControllerTest {
     @Test
     @WithMockUser(username= "Testuser")
     void testNoticeFileDownload() throws Exception {
-        log.info("testNoticeFileDownload JWTTOKEN -- >",jwtToken);
         MvcResult result = mockMvc.perform(get("/noticefile/{noticeFileId}", NOTICE_FILE_ID)
                 .with(SecurityMockMvcRequestPostProcessors.csrf()))
                 .andExpect(status().isOk())
@@ -102,8 +101,6 @@ public class NoticeFileControllerTest {
     @Test
     @WithMockUser(username= "Testuser")
     void testNoticeFileDelete() throws Exception {
-        jwtToken = "Bearer " + jwtService.createAccessToken("Testuser");
-        log.info("testNoticeFileDelete JWTTOKEN -- >"+jwtToken);
         MvcResult result = mockMvc.perform(delete("/noticefile/{noticeFileId}", NOTICE_FILE_ID)
                 .header(HttpHeaders.AUTHORIZATION,jwtToken)
                 .with(SecurityMockMvcRequestPostProcessors.csrf()))
