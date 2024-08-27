@@ -21,8 +21,8 @@ public class Member {
     @Column(name = "member_id")
     private Long id;
 
-    @OneToMany(mappedBy = "member")
-    private List<Event> events;
+    //@OneToMany(mappedBy = "member")
+    //private List<Event> events;
 
     @OneToOne
     @JoinColumn(name = "profile_id")
