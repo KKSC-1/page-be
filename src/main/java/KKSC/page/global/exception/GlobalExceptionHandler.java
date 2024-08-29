@@ -1,6 +1,6 @@
 package KKSC.page.global.exception;
 
-import KKSC.page.domain.calendar.exception.CalendarException;
+import KKSC.page.domain.calendar.exception.EventException;
 import KKSC.page.domain.member.exception.MemberException;
 import KKSC.page.domain.notice.exeption.NoticeBoardException;
 import KKSC.page.domain.notice.exeption.NoticeFileException;
@@ -30,8 +30,8 @@ public class GlobalExceptionHandler {
         return getErrorResponse(errorCode);
     }
 
-    @ExceptionHandler(CalendarException.class)
-    public ErrorResponseVO handleCalendarException(CalendarException ex) {
+    @ExceptionHandler(EventException.class)
+    public ErrorResponseVO handleCalendarException(EventException ex) {
         ErrorCode errorCode = ex.getErrorCode();
 
         return getErrorResponse(errorCode);

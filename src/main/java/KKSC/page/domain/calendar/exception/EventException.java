@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class CalendarException extends RuntimeException {
+public class EventException extends RuntimeException {
 
     private final ErrorCode errorCode;
 }
