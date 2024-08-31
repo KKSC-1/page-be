@@ -33,6 +33,8 @@ public class Profile {
     @Column(name = "profile_photo_path", length = 255, nullable = true)
     private String profilePhotoPath;
 
+    private String email;
+
     // intro 변경 메서드
     public void changeIntro(String intro) {
         this.intro = intro;
