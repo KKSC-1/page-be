@@ -3,6 +3,7 @@ package KKSC.page.domain.member.service.impl;
 import KKSC.page.domain.member.dto.request.MemberLoginRequest;
 import KKSC.page.domain.member.dto.request.MemberRequest;
 import KKSC.page.domain.member.dto.request.ProfileRequest;
+import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
 import KKSC.page.domain.member.dto.response.MemberResponse;
 import KKSC.page.domain.member.entity.Member;
 import KKSC.page.domain.member.entity.Profile;
@@ -72,28 +73,23 @@ public class MemberServiceImpl implements MemberService {
     * 프로필 리퀘스트 객체로 인트로, 닉네임, 사진 경로를 수정하는 메서드 사용
     * */
     @Override
-    public void update(ProfileRequest profileRequest ,MemberRequest memberRequest) {
-
+    public void update(ProfileUpdateRequest profileupdateRequest) {
+        //매개변수 하나로 바꾸기
         // 기존 회원 정보 가져오기
-        Member member = memberRepository.findByEmail(memberRequest.email())
+        Member member = memberRepository.findByEmail(profileupdateRequest.email())
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
         Profile profile = member.getProfile();
 
-        // intro 필드가 존재하면 업데이트
-        if (profileRequest.intro() != null) {
-            profile.changeIntro(profileRequest.intro());
-        }
+        /*
+        * 아래 3개 코드는 프로필 최초 입력 + 프로필 추후 수정에 대한 코드를 합친 것임
+        * 이해 안될 시 류성열 한테 연락 바람(010-9055-1265)
+        * */
+        profile.changeIntro(profileupdateRequest.intro());
 
-        // nickname 필드가 존재하면 업데이트
-        if (profileRequest.nickname() != null) {
-            profile.changeNickname(profileRequest.nickname());
-        }
+        profile.changeNickname(profileupdateRequest.nickname());
 
-         //profilePhotoPath 필드가 존재하면 업데이트
-         if (profileRequest.profilePhotoPath() != null) {
-             profile.changeProfilePhotoPath(profileRequest.profilePhotoPath());
-         }
+        profile.changeProfilePhotoPath(profileupdateRequest.profilePhotoPath());
 
          /*
          * member엔티티와 profile 엔티티가 일대일 연관되어 있으므로
