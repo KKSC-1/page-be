@@ -2,6 +2,7 @@ package KKSC.page.domain.member.service;
 
 import KKSC.page.domain.member.dto.request.MemberLoginRequest;
 import KKSC.page.domain.member.dto.request.MemberRequest;
+import KKSC.page.domain.member.dto.request.ProfileRequest;
 import KKSC.page.domain.member.dto.response.MemberResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -40,7 +41,7 @@ public interface MemberService {
      * @return 미정
      * @since 2024.08.01
      */
-    void update(MemberRequest memberRequest);
+    void update(ProfileRequest profileRequest,MemberRequest memberRequest);
 
     //프로필 조회
     /**
