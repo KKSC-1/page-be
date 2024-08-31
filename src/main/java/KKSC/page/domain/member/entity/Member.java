@@ -46,6 +46,14 @@ public class Member {
 
     private String refreshToken;
 
+    // 정적 팩토리 메서드
+    public static Member createMember(Long id, Profile profile) {
+        Member member = new Member();
+        member.id = id;
+        member.profile = profile;
+        return member;
+    }
+
     public void encodePassword(PasswordEncoder passwordEncoder) {
         this.password = passwordEncoder.encode(this.password);
     }
