@@ -1,5 +1,7 @@
 package KKSC.page.domain.member.dto.request;
 
+import KKSC.page.domain.member.entity.Member;
+import KKSC.page.domain.member.entity.Profile;
 import jakarta.validation.constraints.Size;
 
 public record ProfileRequest(
@@ -8,6 +10,17 @@ public record ProfileRequest(
         String intro,
 
         @Size(min = 2, max = 10, message = "별명은 최대 10자까지 가능합니다.")
-        String nickname
-        //포토 추가예정
-) {}
+        String nickname,
+
+        @Size(max = 255, message = "프로필 사진 경로는 최대 255자까지 가능합니다.")
+        String profilePhotoPath
+) {
+        public Profile toEntity() {
+                return Profile.builder()
+                        .intro(intro)
+                        .nickname(nickname)
+                        .profilePhotoPath(profilePhotoPath) // 추가된 필드
+                        .build();
+        }
+
+}
