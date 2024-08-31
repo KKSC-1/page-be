@@ -14,6 +14,7 @@ public record ProfileRequest(
 
         @Size(max = 255, message = "프로필 사진 경로는 최대 255자까지 가능합니다.")
         String profilePhotoPath
+        
 ) {
         public Profile toEntity() {
                 return Profile.builder()
@@ -22,5 +23,6 @@ public record ProfileRequest(
                         .profilePhotoPath(profilePhotoPath) // 추가된 필드
                         .build();
         }
+
 
 }
