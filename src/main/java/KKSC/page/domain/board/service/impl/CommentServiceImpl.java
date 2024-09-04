@@ -26,7 +26,7 @@ public class CommentServiceImpl {
      * @param request 추가할 댓글의 정보가 담긴 요청 객체
      * @return 추가된 댓글
      */
-    public Comment save(Long boardId, AddCommentRequest request) {
+    public Comment create(Long boardId, AddCommentRequest request) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다. ID: " + boardId));
 
