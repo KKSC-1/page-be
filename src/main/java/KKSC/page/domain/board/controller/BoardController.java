@@ -8,6 +8,7 @@ import KKSC.page.domain.board.service.impl.BoardServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -25,6 +26,7 @@ public class BoardController {
      * @param request 추가할 게시글의 정보가 담긴 요청 객체
      * @return 추가된 게시글의 정보를 담은 ResponseEntity
      */
+    @PreAuthorize("hasRole('permission_level1')")
     @PostMapping
     public ResponseEntity<Board> addBoard(@RequestBody AddBoardRequest request) {
         Board savedBoard=boardService.create(request);
@@ -67,6 +69,7 @@ public class BoardController {
      * @param id 삭제할 게시글의 ID
      * @return 삭제 완료 후의 ResponseEntity
      */
+    @PreAuthorize("hasRole('permission_level1')")
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBoard(@PathVariable("id") long id) {
         boardService.delete(id); // ID를 기반으로 게시글을 삭제합니다.
@@ -80,6 +83,7 @@ public class BoardController {
      * @param request 수정할 내용이 담긴 요청 객체
      * @return 수정된 게시글의 정보를 담은 ResponseEntity
      */
+    @PreAuthorize("hasRole('permission_level1')")
     @PutMapping("/{id}")
     public ResponseEntity<Board> updateBoard(@PathVariable("id") long id, @RequestBody UpdateBoardRequest request) {
         Board updatedBoard = boardService.update(id, request); // ID를 기반으로 게시글을 수정합니다.
