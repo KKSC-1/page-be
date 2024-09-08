@@ -41,7 +41,6 @@ public class JwtLoginSuccessHandler implements AuthenticationSuccessHandler {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         PrintWriter writer = response.getWriter();
-        writer.write("success login. AccessToken: " + accessToken);
     }
 
     private String extractUsername(Authentication authentication) {
