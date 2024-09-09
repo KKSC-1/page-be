@@ -7,6 +7,7 @@ import KKSC.page.domain.board.entity.Comment;
 import KKSC.page.domain.board.repository.BoardRepository;
 import KKSC.page.domain.board.repository.CommentRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,8 @@ public class CommentServiceImpl {
      * @param request 추가할 댓글의 정보가 담긴 요청 객체
      * @return 추가된 댓글
      */
+
+    @PreAuthorize("hasRole('permission_level0')")
     public Comment create(Long boardId, AddCommentRequest request) {
         Board board = boardRepository.findById(boardId)
                 .orElseThrow(() -> new IllegalArgumentException("게시글을 찾을 수 없습니다. ID: " + boardId));
@@ -75,6 +78,7 @@ public class CommentServiceImpl {
      *
      * @param id 댓글의 ID
      */
+    @PreAuthorize("hasRole('permission_level0')")
     public void delete(Long id) {
         if (!commentRepository.existsById(id)) {
             throw new IllegalArgumentException("댓글을 찾을 수 없습니다. ID: " + id);

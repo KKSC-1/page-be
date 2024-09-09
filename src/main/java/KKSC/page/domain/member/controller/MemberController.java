@@ -1,6 +1,8 @@
 package KKSC.page.domain.member.controller;
 
 import KKSC.page.domain.member.dto.request.MemberRequest;
+import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
+import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
 import KKSC.page.domain.member.dto.response.MemberResponse;
 import KKSC.page.domain.member.exception.MemberException;
 import KKSC.page.domain.member.service.MemberService;
@@ -42,8 +44,8 @@ public class MemberController {
     // 회원정보 수정
     @Operation(summary = " 회원정보 수정 ", description = " 회원정보 수정 ")
     @PutMapping("/")
-    public ResponseVO<String> update(@RequestBody @Valid MemberRequest request) {
-        memberService.update(request);
+    public ResponseVO<String> update(@RequestBody @Valid ProfileUpdateRequest profileupdateRequest) {
+        memberService.update(profileupdateRequest);
         return new ResponseVO<>("수정 완료");
     }
 
