@@ -33,7 +33,7 @@ public class CommentController {
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponse addComment(@PathVariable("boardId") Long boardId,
                                       @Valid @RequestBody AddCommentRequest request) {
-        Comment savedComment = commentService.save(boardId, request);
+        Comment savedComment = commentService.create(boardId, request);
         return new CommentResponse(savedComment); // CommentResponse DTO로 변환하여 반환
     }
 
