@@ -40,7 +40,7 @@ public class MemberController {
     public ResponseVO<String> retire(@RequestBody RetireRequest retireRequest) {
         String email = retireRequest.email();
         String password = retireRequest.password();
-        memberService.retire(email,password);
+        memberService.retire(retireRequest);
         return new ResponseVO<>("탈퇴");
     }
 
