@@ -2,12 +2,11 @@ package KKSC.page.domain.member.service;
 
 import KKSC.page.domain.member.dto.request.MemberLoginRequest;
 import KKSC.page.domain.member.dto.request.MemberRequest;
-import KKSC.page.domain.member.dto.request.ProfileRequest;
 import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
+import KKSC.page.domain.member.dto.request.RetireRequest;
 import KKSC.page.domain.member.dto.response.MemberResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.springframework.stereotype.Service;
 
 public interface MemberService {
 
@@ -25,16 +24,15 @@ public interface MemberService {
      * @return 미정
      * @since 2024.08.01
      */
-    String login(MemberLoginRequest memberLoginRequest, HttpServletResponse response);
+//    String login(MemberLoginRequest memberLoginRequest, HttpServletResponse response);
 
     //회원탈퇴
     /**
      * 회원탈퇴
-     * @param email : 탈퇴할 회원의 이메일주소
      * @return 미정
      * @since 2024.08.01
      */
-    void retire(String email);
+    void retire(RetireRequest retireRequest);
 
     //프로필 수정 (비밀번호 수정, 권한 관리, 프로필 수정)
     /**
