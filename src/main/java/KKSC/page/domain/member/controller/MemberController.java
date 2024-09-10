@@ -3,6 +3,7 @@ package KKSC.page.domain.member.controller;
 import KKSC.page.domain.member.dto.request.MemberRequest;
 import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
 import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
+import KKSC.page.domain.member.dto.request.RetireRequest;
 import KKSC.page.domain.member.dto.response.MemberResponse;
 import KKSC.page.domain.member.exception.MemberException;
 import KKSC.page.domain.member.service.MemberService;
@@ -36,13 +37,17 @@ public class MemberController {
     // 회원탈퇴
     @Operation(summary = " 회원탈퇴 ", description = " 회원탈퇴 ")
     @DeleteMapping("/")
-    public ResponseVO<String> retire(@PathVariable String email) {
-        memberService.retire(email);
+    public ResponseVO<String> retire(@RequestBody RetireRequest retireRequest) {
+        String email = retireRequest.email();
+        String password = retireRequest.password();
+        memberService.retire(email,password);
         return new ResponseVO<>("탈퇴");
     }
 
-    // 회원정보 수정
-    @Operation(summary = " 회원정보 수정 ", description = " 회원정보 수정 ")
+    //그럼 이메일도 사용자로 부터 입력받아야 하는거 아닌가?
+    //이럴꺼면 jwt로 진행하는 것이 나으려나....
+    // 프로필 작성+수정
+    @Operation(summary = " 프로필 작성 + 수정 ", description = " 프로필 작성 + 수정  ")
     @PutMapping("/")
     public ResponseVO<String> update(@RequestBody @Valid ProfileUpdateRequest profileupdateRequest) {
         memberService.update(profileupdateRequest);
