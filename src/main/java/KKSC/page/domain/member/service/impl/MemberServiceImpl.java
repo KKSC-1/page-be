@@ -2,8 +2,8 @@ package KKSC.page.domain.member.service.impl;
 
 import KKSC.page.domain.member.dto.request.MemberLoginRequest;
 import KKSC.page.domain.member.dto.request.MemberRequest;
-import KKSC.page.domain.member.dto.request.ProfileRequest;
 import KKSC.page.domain.member.dto.request.ProfileUpdateRequest;
+import KKSC.page.domain.member.dto.request.RetireRequest;
 import KKSC.page.domain.member.dto.response.MemberResponse;
 import KKSC.page.domain.member.entity.Member;
 import KKSC.page.domain.member.entity.Profile;
@@ -12,9 +12,11 @@ import KKSC.page.domain.member.repository.MemberRepository;
 import KKSC.page.domain.member.service.MemberService;
 import KKSC.page.global.auth.service.JwtService;
 import KKSC.page.global.exception.ErrorCode;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,39 +45,49 @@ public class MemberServiceImpl implements MemberService {
         return memberRepository.save(member).getId();
     }
 
-    @Override
-    public String login(MemberLoginRequest memberLoginRequest, HttpServletResponse response) {
+//    @Override
+//    public String login(MemberLoginRequest memberLoginRequest, HttpServletResponse response) {
+//
+//        // 존재하는 사용자인지 확인
+//        Member member = memberRepository.findByEmail(memberLoginRequest.email())
+//                .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
+//
+//        // 비밀번호 일치 여부 확인
+//        if (!passwordEncoder.matches(memberLoginRequest.password(), member.getPassword())) {
+//            throw new MemberException(ErrorCode.MISMATCH_PASSWORD);
+//        }
+//
+//        // 토큰 생성
+//        String accessToken = jwtService.createAccessToken(member.getEmail());
+//
+//        jwtService.sendAccessToken(response, accessToken);
+//
+//        return accessToken;
+//    }
 
-        // 존재하는 사용자인지 확인
-        Member member = memberRepository.findByEmail(memberLoginRequest.email())
+    @Override
+    public void retire(RetireRequest retireRequest) {
+
+        //RetireRequest객체에서 email,password를 가져와 변수에 저장
+        String email = retireRequest.email();
+        String password= retireRequest.password();
+
+        // 이메일로 회원을 조회
+        Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
-        // 비밀번호 일치 여부 확인
-        if (!passwordEncoder.matches(memberLoginRequest.password(), member.getPassword())) {
+        // 비밀번호 검증
+        if (!member.getPassword().equals(password)) {
             throw new MemberException(ErrorCode.MISMATCH_PASSWORD);
         }
 
-        // 토큰 생성
-        String accessToken = jwtService.createAccessToken(member.getEmail());
-
-        jwtService.sendAccessToken(response, accessToken);
-
-        return accessToken;
+        // 회원 탈퇴 로직: 회원을 삭제하거나 탈퇴 상태로 업데이트
+        memberRepository.delete(member);
     }
 
-    @Override
-    public void retire(String email) {
-
-    }
-
-    /*
-    * 멤버 리퀘스트로 이메일을 불러와 기존 회원 정보를 가져오고
-    * 프로필 리퀘스트 객체로 인트로, 닉네임, 사진 경로를 수정하는 메서드 사용
-    * */
     @Override
     public void update(ProfileUpdateRequest profileupdateRequest) {
-        //매개변수 하나로 바꾸기
-        // 기존 회원 정보 가져오기
+
         Member member = memberRepository.findByEmail(profileupdateRequest.email())
                 .orElseThrow(() -> new MemberException(ErrorCode.NOT_FOUND_MEMBER));
 
@@ -91,11 +103,7 @@ public class MemberServiceImpl implements MemberService {
 
         profile.changeProfilePhotoPath(profileupdateRequest.profilePhotoPath());
 
-         /*
-         * member엔티티와 profile 엔티티가 일대일 연관되어 있으므로
-         * member엔티티를 저장하면, 수정된 profile 엔티티도 저장되는 것 같다.
-         * */
-        // 변경된 정보 저장
+        // 변경된 정보 저장(member와 profile은 일대일 관계이므로 member를 저장시 profile도 함께 저장)
         memberRepository.save(member);
     }
 
