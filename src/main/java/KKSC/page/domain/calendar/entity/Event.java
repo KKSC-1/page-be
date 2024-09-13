@@ -1,6 +1,6 @@
 package KKSC.page.domain.calendar.entity;
 
-import KKSC.page.domain.member.entity.Member;
+import KKSC.page.domain.calendar.dto.EventRequest;
 import KKSC.page.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,10 +26,6 @@ public class Event extends BaseTimeEntity {
     @OneToMany(mappedBy = "event")
     private List<Participant> participants;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private Member member;
-
     // 일정 제목
     private String title;
 
@@ -50,12 +46,13 @@ public class Event extends BaseTimeEntity {
     private String detail;
 
     // 일정 수정(시작 날짜, 종료 날짜, 세부 사항 수정)
-    public void update(String title, String detail, Category category, LocalDateTime startDate, LocalDateTime endDate, Long maxParticipant) {
-        this.title = title;
-        this.detail = detail;
-        this.category = category;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.maxParticipant = maxParticipant;
+    public void update(Long eventId, EventRequest eventRequest) {
+        this.id = eventId;
+        this.title = eventRequest.title();
+        this.detail = eventRequest.detail();
+        this.category = eventRequest.category();
+        this.startDate = eventRequest.startDate();
+        this.endDate = eventRequest.endDate();
+        this.maxParticipant = eventRequest.maxParticipant();
     }
 }

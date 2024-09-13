@@ -1,5 +1,6 @@
 package KKSC.page.domain.calendar.entity;
 
+import KKSC.page.domain.member.entity.Member;
 import KKSC.page.global.common.BaseTimeEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,9 +19,12 @@ public class Participant extends BaseTimeEntity {
     @Column(name = "participant_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "event_id")
     private Event event;
 
-    private String name;
+    @OneToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
+
 }
