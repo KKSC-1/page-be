@@ -9,6 +9,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,11 +28,12 @@ public class CommentController {
      * @param request 추가할 댓글의 정보가 담긴 요청 객체
      * @return 추가된 댓글의 정보를 담은 ResponseEntity
      */
+    @PreAuthorize("hasRole('permission_level1')")
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public CommentResponse addComment(@PathVariable("boardId") Long boardId,
                                       @Valid @RequestBody AddCommentRequest request) {
-        Comment savedComment = commentService.save(boardId, request);
+        Comment savedComment = commentService.create(boardId, request);
         return new CommentResponse(savedComment); // CommentResponse DTO로 변환하여 반환
     }
 
@@ -74,6 +76,7 @@ public class CommentController {
      * @param request  수정할 내용이 담긴 요청 객체
      * @return 수정된 댓글의 정보를 담은 ResponseEntity
      */
+    @PreAuthorize("hasRole('permission_level1')")
     @PutMapping("/{id}")
     public ResponseEntity<CommentResponse> updateComment(@PathVariable("boardId") Long boardId,
                                                          @PathVariable("id") Long id,

@@ -6,6 +6,7 @@ import KKSC.page.domain.board.entity.Board;
 import KKSC.page.domain.board.repository.BoardRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.List;
 public class BoardServiceImpl {
     private final BoardRepository boardRepository;
 
+    @PreAuthorize("hasRole('permission_level0')")
     public Board create(AddBoardRequest request) {
         return boardRepository.save(request.toEntity());
     }
@@ -32,7 +34,7 @@ public class BoardServiceImpl {
     // db에 저장되어있는 글의 id를 이용해 글을 조회
     // 조회하고 없으면 IllegalArgumentException 예외 발생
 
-
+    @PreAuthorize("hasRole('permission_level0')")
     public void delete (long id){
         boardRepository.deleteById(id);
     }

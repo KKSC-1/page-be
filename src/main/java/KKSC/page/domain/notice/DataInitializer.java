@@ -31,7 +31,7 @@ public class DataInitializer implements CommandLineRunner {
 
         // 사용자 계정 생성
         MemberRequest memberRequest = new MemberRequest(
-                "kksc@mail.com", "12345678", "kksc", "20241234", null, null
+                "kksc@mail.com", "12345678", "kksc", "20241234"
         );
 
         memberService.register(memberRequest);
